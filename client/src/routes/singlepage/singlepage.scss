@@ -1,0 +1,268 @@
+@use '../../responsive.scss' as *;
+
+.SinglePage {
+    display: flex;
+    height: 100%;
+
+    @include md {
+        flex-direction: column;
+        overflow: scroll;
+    }
+
+    .details {
+        flex: 3;
+        height: 100%;
+        overflow-y: scroll;
+
+        @include md {
+            flex: none;
+            height: max-content; 
+            margin-bottom: 50px;
+        }
+
+        .wrapper {
+            padding-right: 50px;
+
+            @include lg {
+                padding-right: 20px;
+              }
+
+            
+            @include md {
+                padding-right: 0px;
+            }
+
+            .info {
+                margin-top: 50px;
+                .top {
+                    display: flex;
+                    justify-content: space-between;
+
+                    @include sm {
+                        flex-direction: column;
+                        gap: 20px;
+                      }
+
+                    .post {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 20px;
+
+                        h1 {
+                            font-weight: 400;
+                        }
+
+                        .location {
+                            display: flex;
+                            gap: 5px;
+                            align-items: center;
+                            color: gray;
+                            font-size: 14px;
+
+                            img {
+                                width: 16px;
+                                height: 16px;
+                            }
+                        }
+
+                        .openhours {
+                            padding: 5px;
+                            background-color: orange;
+                            color: white;
+                            border-radius: 5px;
+                            width: max-content;
+                            font-size: 20px;
+                            font-weight: 300;
+                            padding-left: 10px;
+                            padding-right: 10px;
+                        }
+                    }
+
+                    .owner {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 20px;
+                        padding: 0px 50px;
+                        border-radius: 10px;
+                        background-color: #88888841;
+                        font-weight: 600;
+
+                        @include sm {
+                            padding: 20px 50px;
+                        }
+                        
+                        img {
+                            width: 50px;
+                            height: 50px;
+                            border-radius: 50%;
+                            object-fit: cover;
+                        }
+                    }
+                }
+
+                .bottom {
+                    margin-top: 50px;
+                    color: rgb(53, 53, 53);
+                    white-space: pre-wrap;
+                }
+            }
+        }
+    }
+
+    .features {
+        flex: 2;
+        height: 100%;
+        overflow-y: scroll;
+        background-color: #88888841;
+        border-radius: 12px;
+        position: relative;
+
+
+        @include md {
+            flex: none;
+            height: max-content; 
+            margin-bottom: 50px;
+        }
+
+        .wrapper {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding: 0px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            @include md {
+                padding: 20px;
+              }
+
+            img {
+                width: 24px;
+                height: 24px;
+            }
+
+            .title {
+                font-weight: bold;
+                font-size: 18px;
+                margin-bottom: 8px;
+            }
+
+            .feature {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+
+                img {
+                    background-color: white;
+                    border-radius: 5px;
+                }
+
+                .featureText {
+                    span {
+                        font-weight: bold;
+                    }
+
+                    p {
+                        font-size: 14px;
+                    }
+
+                    @include sm {
+                        span {
+                            font-weight: bold;
+                            font-size: 14px;
+                        }
+    
+                        p {
+                            font-size: 10px;
+                        }
+    
+                    }
+                }
+            }
+
+            .listVertical {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                padding: 20px 10px;
+                background-color: lightgrey;
+                border-radius: 10px;
+                overflow: hidden;
+              }
+
+              .listHorizontal {
+                display: flex;
+                justify-content: space-between;
+                padding: 20px 15px;
+                background-color: lightgrey;
+                border-radius: 10px;
+                overflow: hidden;
+              }
+
+              .infos {
+                display: flex;
+                justify-content: space-between;
+
+                @include lg {
+                    font-size: 12px;
+                }
+
+                @include md {
+                    font-size: 16px;
+                }
+
+                @include sm {
+                    gap: 5px;
+                    font-size: 13px;
+                }
+
+                .info {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    padding: 10px;
+                    border-radius: 10px;
+                    background-color: lightgray;
+                  
+                    &.ongoing {
+                      background-color: orange;
+                    }
+                  
+                    &.available {
+                      background-color: blue;
+                      color: white; 
+                    }
+                }
+              }
+
+              .mapContainer {
+                width: 100%;
+                height: 200px;
+              }
+
+              .buttons {
+                display: flex;
+                justify-content: space-between;
+                gap: 10px;
+
+                button {
+                    padding: 20px;
+                    display: flex;
+                    align-items: center;
+                    gap: 5px;
+                    background-color: white;
+                    border: 1px solid #18187e;
+                    border-radius: 5px;
+                    cursor: pointer;
+
+                    img {
+                        width: 16px;
+                        height: 16px;
+                    }
+                }
+              }
+        }
+    }
+}

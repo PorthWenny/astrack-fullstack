@@ -1,0 +1,68 @@
+@use "../../responsive.scss" as *;
+
+.Events {
+  max-height: 150px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding-right: 15px;
+  padding-left: 10px;
+  scroll-behavior: smooth;
+
+  @include lg {
+    max-height: 180px;
+  }
+
+  @include sm {
+    max-height: 200px;
+  }
+
+  .event-card {
+    display: flex;
+    gap: 15px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    margin-top: 10px;
+
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);  // Slight hover effect
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    img {
+      width: 80px;
+      height: 80px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .event-info {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+
+      h3 {
+        font-size: 16px;
+        margin: 0;
+      }
+
+      .date-time {
+        font-size: 14px;
+        color: gray;
+      }
+
+      p {
+        font-size: 14px;
+        margin: 0;
+        color: #333;
+      }
+    }
+  }
+}
