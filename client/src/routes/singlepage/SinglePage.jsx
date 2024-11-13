@@ -3,6 +3,7 @@ import "./singlepage.scss";
 import { ownerData, singlePostData, eventsData } from "../../lib/demodata";
 import Map from "../../components/map/Map";
 import Events, { isEventOngoing } from "../../components/events/Events";
+import { Link } from "react-router-dom";
 
 function SinglePage() {
   const ongoingEvent = isEventOngoing(singlePostData.id);
@@ -85,10 +86,12 @@ function SinglePage() {
             <Map items={[singlePostData]} />
           </div>
           <div className="buttons">
-            <button>
-              <img src="/reserve.png" alt="" />
-              Reserve Facility
-            </button>
+            <Link to="/reserve">
+              <button>
+                <img src="/reserve.png" alt="" />
+                Reserve Facility
+              </button>
+            </Link>
             <button>
               <img src="/save.png" alt="" />
               Save as Favorite

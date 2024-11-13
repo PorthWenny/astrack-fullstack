@@ -27,7 +27,7 @@ function Navbar() {
         </a>
         <a href="/">Home</a>
         <a href="/">Map</a>
-        <a href="/">Facilities</a>
+        <a href="/facilities">Facilities</a>
         <a href="/">About</a>
       </div>
       <div className={`right ${isProfilePage ? "profile-bg" : ""}`}>

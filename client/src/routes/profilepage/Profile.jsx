@@ -53,7 +53,9 @@ function Profile() {
       <div className="reserveContainer">
         <div className="wrapper">
           <h1>Your Reservations</h1>
+          <Link to="/reserve">
           <button>Create New</button>
+          </Link>
           <Reserve />
         </div>
       </div>

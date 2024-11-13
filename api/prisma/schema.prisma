@@ -23,21 +23,18 @@ model Users {
 }
 
 model Facilities {
-  id                 String           @id @default(auto()) @map("_id") @db.ObjectId
-  title              String
-  location           String
-  latitude           Float
-  longitude          Float
-  description        String
-  images             String[]
-  type               String
-  floor              Int
-  openHours          String
-  owner              Owner?           @relation(fields: [ownerId], references: [id])
-  ownerId            String?          @db.ObjectId
-  nearbyFacilities   NearbyFacilities @relation(fields: [nearbyFacilitiesId], references: [id])
-  nearbyFacilitiesId String           @db.ObjectId
-
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  title        String
+  location     String
+  latitude     Float
+  longitude    Float
+  description  String
+  images       String[]
+  type         String
+  floor        Int
+  openHours    String
+  owner        Owner?         @relation(fields: [ownerId], references: [id])
+  ownerId      String?        @db.ObjectId
   favorites    Favorites[]
   Reservations Reservations[]
   Events       Events[]
@@ -49,14 +46,6 @@ model Favorites {
   userId     String     @db.ObjectId
   facility   Facilities @relation(fields: [facilityId], references: [id])
   facilityId String     @db.ObjectId
-}
-
-model NearbyFacilities {
-  id         String       @id @default(auto()) @map("_id") @db.ObjectId
-  canteen    Int
-  restroom   Int
-  lobby      Int
-  facilities Facilities[]
 }
 
 model Owner {

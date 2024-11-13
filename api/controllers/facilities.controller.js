@@ -17,7 +17,7 @@ export const getFacility = async (req, res) => {
     const facility = await prisma.facilities.findUnique({
       where: { id },
     });
-
+    
     res.status(200).json(facility);
   } catch (error) {
     console.log(error);
@@ -52,20 +52,21 @@ export const updFacility = async (req, res) => {
 };
 
 export const delFacility = async (req, res) => {
-  const id = req.params.id;
+  const { id } = req.params;
 
   try {
-    const facility = await prisma.facilities.findUnique({
-      where: { id },
-    });
 
     await prisma.facilities.delete({
       where: { id },
     });
 
-    res.status(200).json({ message: "Successfuly deleted record" });
+    res.status(200).json({ message: "Successfully deleted record" });
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Failed to get records" });
+    console.log("Delete facility error:", error);
+    if (error.code === "P2025") {
+      res.status(404).json({ message: "Facility not found" });
+    } else {
+      res.status(500).json({ message: "Failed to delete record" });
+    }
   }
 };
