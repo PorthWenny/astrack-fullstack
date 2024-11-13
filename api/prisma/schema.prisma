@@ -11,10 +11,82 @@ datasource db {
 }
 
 model Users {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  username  String   @unique
-  email     String   @unique
-  password  String
-  avatar    String?
-  createdAt DateTime @default(now())
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  username     String         @unique
+  email        String         @unique
+  password     String
+  avatar       String?
+  createdAt    DateTime       @default(now())
+  favorites    Favorites[]
+  Reservations Reservations[]
+  Events       Events[]
+}
+
+model Facilities {
+  id                 String           @id @default(auto()) @map("_id") @db.ObjectId
+  title              String
+  location           String
+  latitude           Float
+  longitude          Float
+  description        String
+  images             String[]
+  type               String
+  floor              Int
+  openHours          String
+  owner              Owner?           @relation(fields: [ownerId], references: [id])
+  ownerId            String?          @db.ObjectId
+  nearbyFacilities   NearbyFacilities @relation(fields: [nearbyFacilitiesId], references: [id])
+  nearbyFacilitiesId String           @db.ObjectId
+
+  favorites    Favorites[]
+  Reservations Reservations[]
+  Events       Events[]
+}
+
+model Favorites {
+  id         String     @id @default(auto()) @map("_id") @db.ObjectId
+  user       Users      @relation(fields: [userId], references: [id])
+  userId     String     @db.ObjectId
+  facility   Facilities @relation(fields: [facilityId], references: [id])
+  facilityId String     @db.ObjectId
+}
+
+model NearbyFacilities {
+  id         String       @id @default(auto()) @map("_id") @db.ObjectId
+  canteen    Int
+  restroom   Int
+  lobby      Int
+  facilities Facilities[]
+}
+
+model Owner {
+  id         String       @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  image      String
+  fbLink     String
+  facilities Facilities[]
+}
+
+model Reservations {
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  user        Users      @relation(fields: [userId], references: [id])
+  userId      String     @db.ObjectId
+  facility    Facilities @relation(fields: [facilityId], references: [id])
+  facilityId  String     @db.ObjectId
+  rsvDate     DateTime   @default(now())
+  rsvTime     String
+  purpose     String
+  description String
+  progress    String
+}
+
+model Events {
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  user        Users      @relation(fields: [userId], references: [id])
+  userId      String     @db.ObjectId
+  facility    Facilities @relation(fields: [facilityId], references: [id])
+  facilityId  String     @db.ObjectId
+  description String
+  eventDate   DateTime
+  eventTime   String
 }

@@ -5,7 +5,8 @@ nav {
     height: 100px;
     align-items: center;
     justify-content: space-between;
-    
+    z-index: 999;
+
     a {
         transition: all 0.4s ease;
 
@@ -13,14 +14,14 @@ nav {
             scale: 1.05;
         }
 
-        @include sm{
+        @include sm {
             display: none;
         }
     }
 
     .left {
         display: flex;
-        flex:3;
+        flex: 3;
         align-items: center;
         gap: 50px;
         
@@ -29,46 +30,46 @@ nav {
             align-items: center;
             gap: 10px;
 
-        .logo-with-text {
-            width: 200px;
-        }
-
-        .logo-no-text {
-            width: 80px;
-        }
-
-        .logo-no-text {
-            display: none;
-        }
-
-        @include lg {
-            .logo-no-text {
-            display: none;
-            }
             .logo-with-text {
-            display: block;
+                width: 200px;
             }
-        }
 
-        @include md {
             .logo-no-text {
-            display: block;
+                width: 80px;
             }
-            .logo-with-text {
-            display: none;
-            }
-        }
 
-        @include sm {
             .logo-no-text {
-            display: none;
+                display: none;
             }
-            .logo-with-text {
-            display: block;
+
+            @include lg {
+                .logo-no-text {
+                    display: none;
+                }
+                .logo-with-text {
+                    display: block;
+                }
+            }
+
+            @include md {
+                .logo-no-text {
+                    display: block;
+                }
+                .logo-with-text {
+                    display: none;
+                }
+            }
+
+            @include sm {
+                .logo-no-text {
+                    display: none;
+                }
+                .logo-with-text {
+                    display: block;
+                }
             }
         }
     }
-  }
 
     .right {
         flex: 2;
@@ -83,7 +84,7 @@ nav {
             @include md {
                 background-color: transparent;
             }
-          }
+        }
 
         a {
             padding: 12px 24px;
@@ -145,12 +146,13 @@ nav {
 
         .menuIcon {
             display: none;
-            z-index: 1000;
+            z-index: 3; // Ensure it’s on top of other elements
 
             img {
                 width: 36px;
                 height: 36px;
                 cursor: pointer;
+                pointer-events: none;
             }
 
             @include sm {
@@ -159,29 +161,28 @@ nav {
         }
 
         .menu {
-            position: absolute;
+            position: fixed; // Ensure it covers the full screen when active
             top: 0;
-            right: -50%;
+            right: 0;
             background-color: orange;
             color: white;
             height: 100vh;
-            width: 50%;
-
-            display: flex;
+            width: 100vw; // Full width on mobile
+            display: none;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             font-size: 24px;
+            z-index: 2;
 
-
-            transition: all 0.8s ease;
             &.active {
-                right: 0;
+                display: flex;
+                z-index: 3; // Ensure it’s above everything
             }
 
             @include sm {
                 a {
-                    display: initial;
+                    display: block;
                 }
             }
         }

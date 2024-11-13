@@ -8,6 +8,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 1;
 
     form {
       display: flex;
@@ -54,9 +55,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 0;
     
     img {
       width: 115%;
+      pointer-events: none;
     }
   }
 }

@@ -19,7 +19,7 @@ function App() {
           element: <Home />,
         },
         {
-          path: "/facility",
+          path: "/facilities",
           element: <FacilityPage />,
         },
         {
