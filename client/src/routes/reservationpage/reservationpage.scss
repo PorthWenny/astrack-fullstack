@@ -1,87 +1,57 @@
 .ReservationPage {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #f5f5f5;
+  color: #333;
+
+  .formContainer, .calendarContainer {
+    flex: 1;
+    margin: 20px;
     padding: 20px;
-    background-color: #f5f5f5;
-    color: #333;
-  
-    .formContainer, .calendarContainer {
-      flex: 1;
-      margin: 20px;
-      padding: 20px;
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .formContainer {
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #2d3748;
     }
-  
-    .formContainer {
-      h1 {
-        font-size: 24px;
-        margin-bottom: 20px;
-        color: #2d3748;
-      }
-  
-      .wrapper {
-        display: flex;
-        flex-direction: column;
-  
-        .item {
-          margin-bottom: 15px;
-  
-          label {
-            font-weight: bold;
-            color: #4a5568;
-            display: block;
-            margin-bottom: 5px;
-          }
-  
-          input, select, textarea {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #e2e8f0;
-            border-radius: 4px;
-            font-size: 16px;
-            background-color: #f7fafc;
-            color: #2d3748;
-            &:focus {
-              border-color: #4299e1;
-              outline: none;
-            }
-          }
-  
-          textarea {
-            resize: vertical;
-          }
-        }
-      }
-    }
-  
-    .calendarContainer {
-      h2 {
-        font-size: 20px;
-        margin-bottom: 20px;
-        color: #2d3748;
-      }
-  
-      .calendar, .timeSelection {
-        margin-bottom: 20px;
-      }
-  
-      .timeSelection {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        gap: 10px;
-  
+
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+
+      .item {
+        margin-bottom: 15px;
+
         label {
           font-weight: bold;
           color: #4a5568;
+          display: block;
+          margin-bottom: 5px;
         }
-  
-        input[type="time"] {
-          width: 48%;
+
+        input, select {
+          width: 100%;
           padding: 8px;
+          border: 1px solid #e2e8f0;
+          border-radius: 4px;
+          font-size: 16px;
+          background-color: #f7fafc;
+          color: #2d3748;
+          &:focus {
+            border-color: #4299e1;
+            outline: none;
+          }
+        }
+
+        .ql-container {
+          height: 150px;
           border: 1px solid #e2e8f0;
           border-radius: 4px;
           font-size: 16px;
@@ -91,4 +61,55 @@
       }
     }
   }
-  
+
+  .calendarContainer {
+    h2 {
+      font-size: 20px;
+      margin-bottom: 20px;
+      color: #2d3748;
+    }
+
+    .calendar {
+      margin-bottom: 20px;
+    }
+
+    .timeSelection {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 10px;
+
+      label {
+        font-weight: bold;
+        color: #4a5568;
+      }
+
+      input[type="time"] {
+        width: 48%;
+        padding: 8px;
+        border: 1px solid #e2e8f0;
+        border-radius: 4px;
+        font-size: 16px;
+        background-color: #f7fafc;
+        color: #2d3748;
+      }
+    }
+
+    .submitButton {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 20px;
+      font-weight: bold;
+      color: #fff;
+      background-color: #4299e1;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      &:hover {
+        background-color: #3182ce;
+      }
+    }
+  }
+
+}

@@ -20,6 +20,7 @@ function Profile() {
       console.log(error);
     }
   };
+  
   return (
     <div className="Profile">
       <div className="details">

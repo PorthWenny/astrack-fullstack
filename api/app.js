@@ -5,6 +5,8 @@ import facilRoute from "./routes/facilities.route.js";
 import authRoute from "./routes/auth.route.js";
 import testRoute from "./routes/test.route.js";
 import userRoute from "./routes/user.route.js";
+import ownerRoute from "./routes/owner.route.js";
+import reservationsRoute from "./routes/reservations.route.js";
 
 const app = express();
 console.log("Hello World!");
@@ -17,6 +19,8 @@ app.use("/api/facilities", facilRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/test", testRoute);
 app.use("/api/users", userRoute);
+app.use("/api/owner", ownerRoute);
+app.use("/api/reservations", reservationsRoute);
 
 app.listen(6969, () => {
   console.log("Server is running on port 6969. kekw -_-");

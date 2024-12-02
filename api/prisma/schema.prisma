@@ -62,7 +62,7 @@ model Reservations {
   userId      String     @db.ObjectId
   facility    Facilities @relation(fields: [facilityId], references: [id])
   facilityId  String     @db.ObjectId
-  rsvDate     DateTime   @default(now())
+  rsvDate     String
   rsvTime     String
   purpose     String
   description String
