@@ -1,0 +1,16 @@
+@use "../../responsive.scss" as *;
+
+.sidebar {
+  width: 25%;
+  padding: 20px;
+  background-color: #f5f5f5;
+
+  @include sm {
+    width: 100%;
+    order: 2;
+  }
+
+  @include md {
+    width: 35%;
+  }
+}

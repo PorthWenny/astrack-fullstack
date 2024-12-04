@@ -1,0 +1,10 @@
+@use "../../responsive.scss" as *;
+
+.Directions {
+  display: flex;
+  flex-wrap: wrap;
+
+  @include sm {
+    flex-direction: column;
+  }
+}

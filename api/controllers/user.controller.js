@@ -27,6 +27,9 @@ export const updateUser = async (req, res) => {
   const tokenUserId = req.userId;
   const { password, avatar, ...inputs } = req.body;
 
+  console.log("Request User ID from Token:", tokenUserId);
+  console.log("Request Param ID:", id);
+
   if (id !== tokenUserId) {
     return res.status(403).json({ message: "You are not authorized" });
   }
@@ -48,7 +51,7 @@ export const updateUser = async (req, res) => {
 
     const { password: userPass, ...rest } = updatedUser;
 
-    res.status(200).json(updatedUser);
+    res.status(200).json(rest);
   } catch (error) {
     res.status(500).json({ message: "Failed to update users" });
   }

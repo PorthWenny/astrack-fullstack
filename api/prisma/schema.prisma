@@ -17,6 +17,7 @@ model Users {
   password     String
   avatar       String?
   createdAt    DateTime       @default(now())
+  isAdmin      Boolean        @default(false)
   favorites    Favorites[]
   Reservations Reservations[]
   Events       Events[]

@@ -26,7 +26,7 @@ function Navbar() {
           />
         </a>
         <a href="/">Home</a>
-        <a href="/">Map</a>
+        <a href="/maps">Map</a>
         <a href="/facilities">Facilities</a>
         <a href="/">About</a>
       </div>
