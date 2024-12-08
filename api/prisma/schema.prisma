@@ -65,7 +65,8 @@ model Reservations {
   facilityId  String     @db.ObjectId
   rsvDate     String
   rsvTime     String
-  purpose     String
+  title       String
+  department  String
   description String
   progress    String
 }

@@ -38,7 +38,7 @@ function Sidebar({ currentLocation, selectedFacility, onFacilityChange }) {
           </option>
         ))}
       </select>
-      <p>Selected Facility: {selectedFacility.title}</p>
+      <p>Please head to Floor {selectedFacility.floor}</p>
       <p>Distance: {distance} km</p>
     </div>
   );

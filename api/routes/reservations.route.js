@@ -10,8 +10,8 @@ import {
 
 const router = express.Router();
 
-router.get("/", getReservations);
 router.get("/:id", getReservation);
+router.get("/", getReservations);
 router.post("/", verifyToken, addReservation);
 router.put("/:id", verifyToken, updReservation);
 router.delete("/:id", verifyToken, delReservation);

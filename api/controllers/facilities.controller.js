@@ -2,11 +2,12 @@ import prisma from "../lib/prisma.js";
 
 export const getFacilities = async (req, res) => {
   try {
+    console.log("GET /api/facilities - Received request");
     const facilities = await prisma.facilities.findMany();
-    console.log("Facilities:", facilities);
+
     res.status(200).json(facilities);
   } catch (error) {
-    console.log(error);
+    console.error("Error in getFacilities:", error.message);
     res.status(500).json({ message: "Failed to get records" });
   }
 };

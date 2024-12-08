@@ -18,7 +18,13 @@ export const getReservations = async (req, res) => {
 
 export const getReservation = async (req, res) => {
   const id = req.params.id;
+  console.log("Requested Reservation ID:", id);
+
   try {
+    if (!/^[0-9a-fA-F]{24}$/.test(id)) {
+      return res.status(400).json({ message: "Invalid reservation ID" });
+    }
+
     const reservation = await prisma.reservations.findUnique({
       where: { id },
       include: {
@@ -26,6 +32,11 @@ export const getReservation = async (req, res) => {
         facility: true,
       },
     });
+
+    if (!reservation) {
+      return res.status(404).json({ message: "Reservation not found" });
+    }
+
     res.status(200).json(reservation);
   } catch (error) {
     console.log("Error fetching reservation:", error);
@@ -39,7 +50,8 @@ export const addReservation = async (req, res) => {
     facilityId,
     rsvDate,
     rsvTime,
-    purpose,
+    title,
+    department,
     description,
     progress,
   } = req.body;
@@ -51,7 +63,8 @@ export const addReservation = async (req, res) => {
         facilityId,
         rsvDate,
         rsvTime,
-        purpose,
+        title,
+        department,
         description,
         progress,
       },
