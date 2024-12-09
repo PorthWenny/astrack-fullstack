@@ -1,7 +1,7 @@
 import Home from "./routes/homepage/Home";
 import FacilityPage from "./routes/facilitypage/FacilityPage";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Layout, RequireAuth } from "./routes/layout/Layout";
+import { Layout, RequireAuth, RequireAdmin } from "./routes/layout/Layout";
 import SinglePage from "./routes/singlepage/SinglePage";
 import Login from "./routes/loginpage/Login";
 import Profile from "./routes/profilepage/Profile";
@@ -9,6 +9,7 @@ import Register from "./routes/register/Register";
 import UpdateProfile from "./routes/updatepage/UpdateProfile";
 import ReservationPage from "./routes/reservationpage/ReservationPage";
 import Directions from "./routes/directionpage/Directions";
+import NewFacilityPage from "./routes/admin/newfacilitypage/NewFacilityPage";
 
 function App() {
   const router = createBrowserRouter([
@@ -57,6 +58,16 @@ function App() {
         {
           path: "/reserve",
           element: <ReservationPage />,
+        },
+      ],
+    },
+    {
+      path: "/",
+      element: <RequireAdmin />,
+      children: [
+        {
+          path: "/add-facility",
+          element: <NewFacilityPage />,
         },
       ],
     },

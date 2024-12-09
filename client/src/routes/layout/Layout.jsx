@@ -1,8 +1,8 @@
 import "./layout.scss";
 import Navbar from "../../components/navbar/Navbar";
 import { Navigate, Outlet } from "react-router-dom";
-import { AuthContext } from "../../context/authContext";
 import { useContext } from "react";
+import { AuthContext } from "../../context/authContext";
 
 function Layout() {
   return (
@@ -34,4 +34,21 @@ function RequireAuth() {
   );
 }
 
-export { Layout, RequireAuth };
+function RequireAdmin() {
+  const { currentUser } = useContext(AuthContext);
+
+  return !currentUser || !currentUser.isAdmin ? (
+    <Navigate to="/" /> // Redirect to home if not an admin
+  ) : (
+    <div className="Layout">
+      <div className="navbar">
+        <Navbar />
+      </div>
+      <div className="content">
+        <Outlet />
+      </div>
+    </div>
+  );
+}
+
+export { Layout, RequireAuth, RequireAdmin };
