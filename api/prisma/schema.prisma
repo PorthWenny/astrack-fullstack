@@ -30,7 +30,7 @@ model Facilities {
   latitude     Float
   longitude    Float
   description  String
-  images       String[]
+  img          String[]
   type         String
   floor        Int
   openHours    String

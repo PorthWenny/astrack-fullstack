@@ -1,34 +1,39 @@
 import Slider from "../../components/slider/Slider";
 import "./singlepage.scss";
-import { ownerData, singlePostData, eventsData } from "../../lib/demodata";
 import Map from "../../components/map/Map";
 import Events, { isEventOngoing } from "../../components/events/Events";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 function SinglePage() {
-  const ongoingEvent = isEventOngoing(singlePostData.id);
+  const currentFacility = useLoaderData();
+  const ongoingEvent = isEventOngoing(currentFacility.id);
+  console.log(currentFacility);
+
+  const center = [currentFacility.latitude, currentFacility.longitude];
 
   return (
     <div className="SinglePage">
       <div className="details">
         <div className="wrapper">
-          <Slider images={singlePostData.images} />
+          <Slider img={currentFacility.img} />
           <div className="info">
             <div className="top">
               <div className="post">
-                <h1>{singlePostData.title}</h1>
+                <h1>{currentFacility.title}</h1>
                 <div className="location">
                   <img src="/pin.png" alt="" />
-                  <span>{singlePostData.location}</span>
+                  <span>{currentFacility.location}</span>
                 </div>
-                <div className="openhours">Open {singlePostData.openHours}</div>
+                <div className="openhours">
+                  Open {currentFacility.openHours}
+                </div>
               </div>
               <div className="owner">
-                <img src={ownerData.img} alt="" />
-                <span>{ownerData.name}</span>
+                <img src={currentFacility.owner.image} alt="" />
+                <span>{currentFacility.owner.name}</span>
               </div>
             </div>
-            <div className="bottom">{singlePostData.description}</div>
+            <div className="bottom">{currentFacility.description}</div>
           </div>
         </div>
       </div>
@@ -36,17 +41,17 @@ function SinglePage() {
         <div className="wrapper">
           <p className="title">Events Held</p>
           <div className="listVertical">
-            <Events locationId={singlePostData.id} />
+            <Events locationId={currentFacility.id} />
           </div>
           <p className="title">Information</p>
           <div className="infos">
             <div className="info">
               <img src="/stair.png" alt="" />
-              <span>{singlePostData.floor} Floor/s</span>
+              <span>{currentFacility.floor} Floor/s</span>
             </div>
             <div className="info">
               <img src="/room.png" alt="" />
-              <span>{singlePostData.type}</span>
+              <span>{currentFacility.type}</span>
             </div>
 
             <div className={`info ${ongoingEvent ? "ongoing" : "available"}`}>
@@ -83,7 +88,8 @@ function SinglePage() {
           </div>
           <p className="title">Location</p>
           <div className="mapContainer">
-            <Map items={[singlePostData]} />
+            {/* Pass the current location's latitude and longitude to Map */}
+            <Map items={[currentFacility]} center={center} />
           </div>
           <div className="buttons">
             <Link to="/reserve">

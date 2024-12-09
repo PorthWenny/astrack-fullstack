@@ -10,6 +10,7 @@ import UpdateProfile from "./routes/updatepage/UpdateProfile";
 import ReservationPage from "./routes/reservationpage/ReservationPage";
 import Directions from "./routes/directionpage/Directions";
 import NewFacilityPage from "./routes/admin/newfacilitypage/NewFacilityPage";
+import { singlePageLoader, facilityDataLoader } from "./lib/loaders";
 
 function App() {
   const router = createBrowserRouter([
@@ -24,6 +25,7 @@ function App() {
         {
           path: "/maps",
           element: <Directions />,
+          loader: facilityDataLoader,
         },
         {
           path: "/facilities",
@@ -32,6 +34,7 @@ function App() {
         {
           path: "/:id",
           element: <SinglePage />,
+          loader: singlePageLoader,
         },
         {
           path: "/register",

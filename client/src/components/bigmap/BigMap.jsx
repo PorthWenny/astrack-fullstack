@@ -1,63 +1,45 @@
-import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
-import "leaflet-routing-machine";
+// BigMap.js
+import { useEffect, useRef } from "react";
 import L from "leaflet";
-import { useEffect } from "react";
+import "leaflet-routing-machine";
 import "./bigmap.scss";
 
-function Routing({ currentLocation, selectedFacility }) {
-  const map = useMap();
+const BigMap = ({ currentLocation, selectedFacility }) => {
+  const mapRef = useRef(null); // Reference for the map container
+  const mapInstance = useRef(null); // Store the map instance to avoid re-initializing
 
   useEffect(() => {
-    if (!map || !currentLocation || !selectedFacility) return;
+    // Initialize the map only if it hasn't been initialized yet
+    if (!mapInstance.current) {
+      mapInstance.current = L.map(mapRef.current, {
+        center: [currentLocation.latitude, currentLocation.longitude],
+        zoom: 16,
+      });
 
-    const routingControl = L.Routing.control({
-      waypoints: [
-        L.latLng(currentLocation.latitude, currentLocation.longitude),
-        L.latLng(selectedFacility.latitude, selectedFacility.longitude),
-      ],
-      lineOptions: {
-        styles: [{ color: "#6FA1EC", weight: 4 }],
-      },
-      createMarker: function (i, waypoint) {
-        return L.marker(waypoint.latLng);
-      },
-      show: false,
-      addWaypoints: false,
-    }).addTo(map);
+      // Add OpenStreetMap tile layer
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(
+        mapInstance.current
+      );
+    }
 
-    // remove the routing control when the component is unmounted
-    return () => map.removeControl(routingControl);
-  }, [map, currentLocation, selectedFacility]);
+    // Update the map's position and routing if the selected facility changes
+    if (mapInstance.current && selectedFacility) {
+      const routeControl = L.Routing.control({
+        waypoints: [
+          L.latLng(currentLocation.latitude, currentLocation.longitude),
+          L.latLng(selectedFacility.latitude, selectedFacility.longitude),
+        ],
+        routeWhileDragging: true,
+      }).addTo(mapInstance.current);
 
-  return null;
-}
+      // Cleanup any old route layers when the facility changes
+      return () => {
+        routeControl.getPlan().setWaypoints([]);
+      };
+    }
+  }, [currentLocation, selectedFacility]); // Re-run only if currentLocation or selectedFacility changes
 
-function BigMap({ currentLocation, selectedFacility }) {
-  return (
-    <div className="mapContainer">
-      <MapContainer
-        center={[currentLocation.latitude, currentLocation.longitude]}
-        zoom={15}
-        style={{ height: "100%", width: "100%" }}
-      >
-        <TileLayer
-          attribution='&copy; ASTRACK and <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <Routing
-          currentLocation={currentLocation}
-          selectedFacility={selectedFacility}
-        />
-        <Marker
-          position={[currentLocation.latitude, currentLocation.longitude]}
-        />
-        <Marker
-          position={[selectedFacility.latitude, selectedFacility.longitude]}
-        />
-      </MapContainer>
-    </div>
-  );
-}
+  return <div id="map" ref={mapRef} style={{ height: "100vh" }} />;
+};
 
 export default BigMap;
