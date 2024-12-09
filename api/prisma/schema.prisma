@@ -47,6 +47,8 @@ model Favorites {
   userId     String     @db.ObjectId
   facility   Facilities @relation(fields: [facilityId], references: [id])
   facilityId String     @db.ObjectId
+
+  @@unique([userId, facilityId])
 }
 
 model Owner {

@@ -1,8 +1,20 @@
 import prisma from "../lib/prisma.js";
+import jwt from "jsonwebtoken";
 
 export const getFacilities = async (req, res) => {
+  const { title, type } = req.query;
+
   try {
     const facilities = await prisma.facilities.findMany({
+      where: {
+        title: title
+          ? {
+              contains: title,
+              mode: "insensitive",
+            }
+          : undefined,
+        type: type || undefined,
+      },
       include: {
         owner: true,
       },
@@ -12,6 +24,23 @@ export const getFacilities = async (req, res) => {
   } catch (error) {
     console.error("Error:", error.message);
     res.status(500).json({ message: "Failed to get records" });
+  }
+};
+
+export const getFacilityTypes = async (req, res) => {
+  try {
+    const types = await prisma.facilities.findMany({
+      select: {
+        type: true,
+      },
+      distinct: ["type"],
+    });
+
+    const uniqueTypes = types.map((facility) => facility.type);
+    res.status(200).json(uniqueTypes);
+  } catch (error) {
+    console.error("Error fetching types:", error.message);
+    res.status(500).json({ message: "Failed to fetch facility types" });
   }
 };
 
@@ -25,11 +54,30 @@ export const getFacility = async (req, res) => {
       },
     });
 
+    const token = req.cookies?.token;
+
+    if (token) {
+      jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
+        if (!err) {
+          const fave = await prisma.favorites.findUnique({
+            where: {
+              userId_facilityId: {
+                userId: payload.id,
+                facilityId: id,
+              },
+            },
+          });
+          res
+            .status(200)
+            .json({ ...facility, isFavorite: fave ? true : false });
+        }
+      });
+    }
+    res.status(200).json({ ...facility, isFavorite: false });
+
     if (!facility) {
       return res.status(404).json({ message: "Facility not found" });
     }
-
-    res.status(200).json(facility);
   } catch (error) {
     console.error("Error:", error.message);
     res.status(500).json({ message: "Failed to get record" });

@@ -1,21 +1,12 @@
-// Sidebar.js
 import React from "react";
 import { calcDistance } from "../../lib/calcDistance";
-import "./sidebar.scss";
 
 const Sidebar = ({
   currentLocation,
-  selectedFacility,
-  onFacilityChange,
   facilities,
+  selectedFacility,
+  handleFacilityChange,
 }) => {
-  const distance = calcDistance(
-    currentLocation.latitude,
-    currentLocation.longitude,
-    selectedFacility.latitude,
-    selectedFacility.longitude
-  ).toFixed(2);
-
   return (
     <div className="sidebar">
       <h1>Directions</h1>
@@ -24,8 +15,8 @@ const Sidebar = ({
         {currentLocation.longitude}
       </p>
       <select
-        onChange={(e) => onFacilityChange(e.target.value)}
-        value={selectedFacility?.id || ""}
+        onChange={(e) => handleFacilityChange(e.target.value)}
+        value={selectedFacility.id}
       >
         {facilities.map((facility) => (
           <option key={facility.id} value={facility.id}>
@@ -33,12 +24,17 @@ const Sidebar = ({
           </option>
         ))}
       </select>
-      {selectedFacility && (
-        <>
-          <p>Please head to Floor {selectedFacility.floor}</p>
-          <p>Distance: {distance} km</p>
-        </>
-      )}
+      <p>Please head to Floor {selectedFacility.floor}</p>
+      <p>
+        Distance:{" "}
+        {calcDistance(
+          currentLocation.latitude,
+          currentLocation.longitude,
+          selectedFacility.latitude,
+          selectedFacility.longitude
+        ).toFixed(2)}{" "}
+        km
+      </p>
     </div>
   );
 };

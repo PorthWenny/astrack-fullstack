@@ -6,7 +6,7 @@ function Map({ items, center, onMapClick }) {
   return (
     <MapContainer
       center={center}
-      zoom={16}
+      zoom={25}
       scrollWheelZoom={false}
       className="Map"
     >

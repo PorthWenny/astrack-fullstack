@@ -1,79 +1,54 @@
+// components/Directions.jsx
 import { useState, useEffect } from "react";
+import Sidebar from "../../components/bigmap/Sidebar";
 import BigMap from "../../components/bigmap/BigMap";
 import { facilityDataLoader } from "../../lib/loaders";
-import "./directions.scss";
-import { calcDistance } from "../../lib/calcDistance";
+import useGeolocation from "../../hooks/useGeolocation";
 
-function Directions() {
-  const [currentLocation, setCurrentLocation] = useState(null);
-  const [selectedFacility, setSelectedFacility] = useState(null);
+const Directions = () => {
   const [facilities, setFacilities] = useState([]);
+  const [selectedFacility, setSelectedFacility] = useState(null);
   const [loading, setLoading] = useState(true);
+  const currentLocation = useGeolocation();
 
+  // Fetch facilities and current location on component mount
   useEffect(() => {
-    // Fetch all facilities when the component mounts
     const fetchFacilities = async () => {
       setLoading(true);
       const data = await facilityDataLoader();
       setFacilities(data);
-      setSelectedFacility(data[0]);
+      if (data.length > 0 && !selectedFacility) {
+        // Set first facility as default if not already selected
+        setSelectedFacility(data[0]);
+      }
       setLoading(false);
     };
 
     fetchFacilities();
-
-    // Fetch current location
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        setCurrentLocation({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        });
-      },
-      () => alert("Unable to fetch your location")
-    );
   }, []);
 
+  // Handle facility change (when a new facility is selected from dropdown)
   const handleFacilityChange = (facilityId) => {
     const facility = facilities.find((fac) => fac.id === Number(facilityId));
-    setSelectedFacility(facility); // Update selected facility
+    if (facility && facility !== selectedFacility) {
+      setSelectedFacility(facility); // Only update if the facility is different
+    }
   };
 
-  console.log(currentLocation, selectedFacility);
-
-  // If loading or missing data, show loading message
+  // Show loading state if still fetching data or missing essential data
   if (loading || !currentLocation || !selectedFacility) {
     return <div>Loading map...</div>;
   }
 
   return (
     <div className="Directions">
-      {/* Sidebar with inline control */}
-      <div className="sidebar">
-        <h1>Directions</h1>
-        <p>
-          Your Location: Latitude {currentLocation.latitude}, Longitude{" "}
-          {currentLocation.longitude}
-        </p>
-        <select onChange={(e) => handleFacilityChange(e.target.value)}>
-          {facilities.map((facility) => (
-            <option key={facility.id} value={facility.id}>
-              {facility.title}
-            </option>
-          ))}
-        </select>
-        <p>Please head to Floor {selectedFacility.floor}</p>
-        <p>
-          Distance:{" "}
-          {calcDistance(
-            currentLocation.latitude,
-            currentLocation.longitude,
-            selectedFacility.latitude,
-            selectedFacility.longitude
-          ).toFixed(2)}{" "}
-          km
-        </p>
-      </div>
+      {/* Sidebar component */}
+      <Sidebar
+        currentLocation={currentLocation}
+        facilities={facilities}
+        selectedFacility={selectedFacility}
+        handleFacilityChange={handleFacilityChange}
+      />
 
       {/* BigMap component */}
       <BigMap
@@ -82,6 +57,6 @@ function Directions() {
       />
     </div>
   );
-}
+};
 
 export default Directions;

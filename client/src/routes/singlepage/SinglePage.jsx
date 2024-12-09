@@ -2,12 +2,32 @@ import Slider from "../../components/slider/Slider";
 import "./singlepage.scss";
 import Map from "../../components/map/Map";
 import Events, { isEventOngoing } from "../../components/events/Events";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import apiRequest from "../../lib/apiRequest";
+import { AuthContext } from "../../context/authContext";
 
 function SinglePage() {
   const currentFacility = useLoaderData();
+  const [favorite, setFavorite] = useState(currentFacility.isFavorite);
+  const { currentUser } = useContext(AuthContext);
   const ongoingEvent = isEventOngoing(currentFacility.id);
-  console.log(currentFacility);
+  const navigate = useNavigate();
+
+  const handleSave = async () => {
+    setFavorite((prev) => !prev);
+    if (!currentUser) {
+      navigate("/login");
+      return;
+    }
+
+    try {
+      await apiRequest.post("/users/save", { facilityId: currentFacility.id });
+    } catch (err) {
+      console.log(err);
+      setFavorite((prev) => !prev);
+    }
+  };
 
   const center = [currentFacility.latitude, currentFacility.longitude];
 
@@ -98,9 +118,12 @@ function SinglePage() {
                 Reserve Facility
               </button>
             </Link>
-            <button>
+            <button
+              onClick={handleSave}
+              style={{ backgroundColor: favorite ? "#18187e" : "white" }}
+            >
               <img src="/save.png" alt="" />
-              Save as Favorite
+              {favorite ? "Facility saved" : "Save as Favorite"}
             </button>
           </div>
         </div>

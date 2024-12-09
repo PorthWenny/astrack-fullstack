@@ -74,3 +74,62 @@ export const deleteUser = async (req, res) => {
     res.status(500).json({ message: "Failed to delete users" });
   }
 };
+
+export const saveFacility = async (req, res) => {
+  const facilityId = req.body.facilityId;
+  const tokenUserId = req.userId;
+
+  try {
+    const favorite = await prisma.favorites.findUnique({
+      where: {
+        userId_facilityId: {
+          userId: tokenUserId,
+          facilityId,
+        },
+      },
+    });
+
+    if (favorite) {
+      await prisma.favorites.delete({
+        where: {
+          id: favorite.id,
+        },
+      });
+      return res
+        .status(200)
+        .json({ message: "Facility removed from favorites" });
+    } else {
+      await prisma.favorites.create({
+        data: {
+          userId: tokenUserId,
+          facilityId,
+        },
+      });
+      return res.status(200).json({ message: "Facility added to favorites" });
+    }
+  } catch (error) {
+    console.error("Error saving facility to favorites:", error.message);
+    return res
+      .status(500)
+      .json({ message: "An error occurred while saving the facility" });
+  }
+};
+
+export const getUserFavorites = async (req, res) => {
+  const userId = req.userId;
+
+  console.log("Fetching favorites for user:", userId);
+
+  try {
+    const favorites = await prisma.favorites.findMany({
+      where: { userId },
+      include: { facility: true },
+    });
+
+    console.log("Favorites fetched:", favorites);
+    res.status(200).json(favorites);
+  } catch (error) {
+    console.error("Error fetching favorites:", error.message);
+    res.status(500).json({ message: "Failed to fetch user favorites" });
+  }
+};

@@ -5,6 +5,7 @@ import {
   addFacility,
   delFacility,
   getFacilities,
+  getFacilityTypes,
   getFacility,
   updFacility,
 } from "../controllers/facilities.controller.js";
@@ -12,6 +13,7 @@ import {
 const router = express.Router();
 
 router.get("/", getFacilities);
+router.get("/types", getFacilityTypes);
 router.get("/:id", getFacility);
 router.post("/", verifyToken, checkAdmin, addFacility);
 router.put("/:id", verifyToken, checkAdmin, updFacility);
