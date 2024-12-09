@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./Alert.scss";
+import "./alert.scss";
 
 const Alert = ({ type, message, onClose }) => {
   // close after 5sec. if not closed by user

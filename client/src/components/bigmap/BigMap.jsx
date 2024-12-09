@@ -3,7 +3,7 @@ import "leaflet/dist/leaflet.css";
 import "leaflet-routing-machine";
 import L from "leaflet";
 import { useEffect } from "react";
-import "./BigMap.scss";
+import "./bigmap.scss";
 
 function Routing({ currentLocation, selectedFacility }) {
   const map = useMap();

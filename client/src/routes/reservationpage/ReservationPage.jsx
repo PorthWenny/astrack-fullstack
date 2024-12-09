@@ -2,7 +2,6 @@ import "./reservationpage.scss";
 import ReactQuill from "react-quill";
 import "quill/dist/quill.snow.css";
 import { useState, useEffect, useContext } from "react";
-import DOMPurify from "dompurify";
 import { DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
