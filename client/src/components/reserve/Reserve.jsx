@@ -2,7 +2,6 @@ import "./reserve.scss";
 import { facilData, reserveData, currentUser } from "../../lib/demodata";
 
 function Reserve() {
-  // Filter reservations to show only those for the logged-in user
   const userReservations = reserveData.filter(
     (reservation) => reservation.user_id === currentUser.user_id
   );
@@ -12,16 +11,30 @@ function Reserve() {
       <div className="reserveList">
         <div className="wrapper">
           {userReservations.length ? (
-            userReservations.map((reservation) => {
+            userReservations.map((reservation, index) => {
               const facility = facilData.find(
                 (facil) => facil.id === reservation.location_id
               );
+
+              if (!facility) {
+                console.warn(
+                  `No facility found for reservation ID: ${reservation.id}`
+                );
+                return null;
+              }
+
+              // Use a fallback for missing reservation.id
+              const uniqueKey = reservation.id || `reservation-${index}`;
+
               return (
-                <div className="reservation" key={reservation.id}>
-                  <img src={facility.img} alt={facility.title} />
+                <div className="reservation" key={uniqueKey}>
+                  <img
+                    src={facility.img || "/placeholder.png"}
+                    alt={facility.title || "Unknown Facility"}
+                  />
                   <div className="reservationInfo">
                     <h2>{reservation.event_name}</h2>
-                    <h3>{facility.title}</h3>
+                    <h3>{facility.title || "Unknown Facility"}</h3>
                     <p>
                       <strong>Date:</strong> {reservation.date}
                     </p>

@@ -10,6 +10,8 @@ import UpdateProfile from "./routes/updatepage/UpdateProfile";
 import ReservationPage from "./routes/reservationpage/ReservationPage";
 import Directions from "./routes/directionpage/Directions";
 import NewFacilityPage from "./routes/admin/newfacilitypage/NewFacilityPage";
+import AdminPanel from "./routes/admin/adminpanelpage/AdminPanel";
+
 import {
   singlePageLoader,
   facilityDataLoader,
@@ -73,6 +75,10 @@ function App() {
       path: "/",
       element: <RequireAdmin />,
       children: [
+        {
+          path: "/admin-panel",
+          element: <AdminPanel />,
+        },
         {
           path: "/add-facility",
           element: <NewFacilityPage />,

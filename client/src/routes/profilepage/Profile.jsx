@@ -20,7 +20,11 @@ function Profile() {
       console.log(error);
     }
   };
-  
+
+  const handleFavorite = () => {
+    navigate("/facilities");
+  };
+
   return (
     <div className="Profile">
       <div className="details">
@@ -46,7 +50,7 @@ function Profile() {
           </div>
           <div className="title">
             <h1>Favorites</h1>
-            <button>Add Favorites</button>
+            <button onClick={handleFavorite}>Add Favorites</button>
           </div>
           <Favorites />
         </div>
@@ -55,7 +59,7 @@ function Profile() {
         <div className="wrapper">
           <h1>Your Reservations</h1>
           <Link to="/reserve">
-          <button>Create New</button>
+            <button>Create New</button>
           </Link>
           <Reserve />
         </div>

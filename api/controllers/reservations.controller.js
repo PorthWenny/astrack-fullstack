@@ -79,13 +79,23 @@ export const addReservation = async (req, res) => {
 
 export const updReservation = async (req, res) => {
   const id = req.params.id;
-  const body = req.body;
+  const { progress, title, department, description, userId, facilityId } =
+    req.body;
 
   try {
     const updatedReservation = await prisma.reservations.update({
       where: { id },
       data: {
-        ...body,
+        progress,
+        title,
+        department,
+        description,
+        userId,
+        facilityId,
+      },
+      include: {
+        user: true,
+        facility: true,
       },
     });
 

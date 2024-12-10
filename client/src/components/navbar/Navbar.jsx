@@ -5,7 +5,6 @@ import { AuthContext } from "../../context/authContext";
 
 function Navbar() {
   const [openMenu, setOpenMenu] = useState(false);
-
   const { currentUser } = useContext(AuthContext);
 
   const location = useLocation();
@@ -35,9 +34,11 @@ function Navbar() {
           <div className="user">
             <img src={currentUser.avatar || "/noavatar.png"} alt="_" />
             <span className="name">{currentUser.username}</span>
-            <Link to="/profile" className="profile">
-              <div className="notif">3</div>
-              <span>Profile</span>
+            <Link
+              to={currentUser.isAdmin ? "/admin-panel" : "/profile"}
+              className="profile"
+            >
+              <span>{currentUser.isAdmin ? "Admin Panel" : "Profile"}</span>
             </Link>
           </div>
         ) : (
@@ -51,7 +52,7 @@ function Navbar() {
         <div className="menuIcon">
           <img
             src="/menu.png"
-            alt=""
+            alt="Menu Icon"
             onClick={() => setOpenMenu((prev) => !prev)}
           />
         </div>
@@ -60,8 +61,8 @@ function Navbar() {
           <a href="/">Map</a>
           <a href="/">Facilities</a>
           <a href="/">About</a>
-          <a href="/">Login</a>
-          <a href="/">Register</a>
+          <a href="/login">Login</a>
+          <a href="/register">Register</a>
         </div>
       </div>
     </nav>

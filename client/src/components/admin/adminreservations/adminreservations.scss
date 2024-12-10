@@ -1,0 +1,52 @@
+@use '../../../responsive.scss' as *;
+
+.AdminReservation {
+    .reservationList {
+        max-width: 800px;
+        margin: auto;
+
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .reservation {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+            img {
+                width: 80px;
+                height: 110px;
+                object-fit: cover;
+                border-radius: 8px;
+
+                @include sm {
+                    display: none;
+                }
+            }
+
+            .reservationInfo {
+                h2 {
+                    font-size: 1.25rem;
+                    margin: 0;
+                }
+
+                h3 {
+                    font-size: 1rem;
+                    font-weight: bold;
+                    margin: 0;
+                }
+
+                p {
+                    margin: 0.25rem 0;
+                }
+            }
+        }
+    }
+}

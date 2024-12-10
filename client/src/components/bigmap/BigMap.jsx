@@ -4,11 +4,10 @@ import "leaflet-routing-machine";
 import "./bigmap.scss";
 
 const BigMap = ({ currentLocation, selectedFacility }) => {
-  const mapRef = useRef(null); // Reference for the map container
-  const mapInstance = useRef(null); // Store the map instance to avoid re-initializing
+  const mapRef = useRef(null);
+  const mapInstance = useRef(null);
 
   useEffect(() => {
-    // Initialize the map only if it hasn't been initialized yet
     if (!mapInstance.current) {
       mapInstance.current = L.map(mapRef.current, {
         center: [currentLocation.latitude, currentLocation.longitude],
@@ -21,7 +20,6 @@ const BigMap = ({ currentLocation, selectedFacility }) => {
       );
     }
 
-    // Update the map's position and routing if the selected facility changes
     if (mapInstance.current && selectedFacility) {
       const routeControl = L.Routing.control({
         waypoints: [
@@ -31,12 +29,11 @@ const BigMap = ({ currentLocation, selectedFacility }) => {
         routeWhileDragging: true,
       }).addTo(mapInstance.current);
 
-      // Cleanup any old route layers when the facility changes
       return () => {
         routeControl.getPlan().setWaypoints([]);
       };
     }
-  }, [currentLocation, selectedFacility]); // Re-run only if currentLocation or selectedFacility changes
+  }, [currentLocation, selectedFacility]);
 
   return <div id="map" ref={mapRef} style={{ height: "100vh" }} />;
 };
