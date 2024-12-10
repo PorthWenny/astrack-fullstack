@@ -86,7 +86,6 @@ export const getFacility = async (req, res) => {
 
 export const addFacility = async (req, res) => {
   const body = req.body;
-  console.log("Request body received at backend:", body); // Debug incoming data
 
   try {
     const newFacility = await prisma.facilities.create({

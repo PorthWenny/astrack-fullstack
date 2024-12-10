@@ -11,7 +11,7 @@ import ReservationPage from "./routes/reservationpage/ReservationPage";
 import Directions from "./routes/directionpage/Directions";
 import NewFacilityPage from "./routes/admin/newfacilitypage/NewFacilityPage";
 import AdminPanel from "./routes/admin/adminpanelpage/AdminPanel";
-
+import UpdateFacilityPage from "./routes/admin/updatefacilitypage/UpdateFacilityPage";
 import {
   singlePageLoader,
   facilityDataLoader,
@@ -82,6 +82,10 @@ function App() {
         {
           path: "/add-facility",
           element: <NewFacilityPage />,
+        },
+        {
+          path: "/edit-facility/:id",
+          element: <UpdateFacilityPage />,
         },
       ],
     },

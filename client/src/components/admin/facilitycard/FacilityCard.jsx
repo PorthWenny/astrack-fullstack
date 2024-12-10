@@ -1,17 +1,26 @@
+import { useNavigate } from "react-router-dom";
 import "./facilitycard.scss";
+import apiRequest from "../../../lib/apiRequest";
 
 function FacilityCard({ facility, adminMode }) {
+  const navigate = useNavigate();
+
   const handleEdit = () => {
-    // Navigate to edit facility page
-    console.log(`Edit facility ${facility.id}`);
+    navigate(`/edit-facility/${facility.id}`);
   };
 
   const handleDelete = async () => {
-    try {
-      await apiRequest.delete(`/facilities/${facility.id}`);
-      console.log(`Deleted facility ${facility.id}`);
-    } catch (error) {
-      console.error("Error deleting facility:", error);
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this facility?"
+    );
+    if (confirmDelete) {
+      try {
+        await apiRequest.delete(`/facilities/${facility.id}`);
+        console.log(`Deleted facility ${facility.id}`);
+        navigate(0);
+      } catch (error) {
+        console.error("Error deleting facility:", error);
+      }
     }
   };
 

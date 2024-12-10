@@ -8,6 +8,7 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  position: relative; // To allow absolute positioning of the image
 
   @include sm {
     width: 100%;
@@ -50,18 +51,18 @@
     appearance: none;
     cursor: pointer;
     transition: all 0.3s;
-  
+
     // Hover and focus styles
     &:hover {
       border-color: #6fa1ec;
     }
-  
+
     &:focus {
       outline: none;
       border-color: #6fa1ec;
       box-shadow: 0 0 4px rgba(111, 161, 236, 0.5);
     }
-  
+
     option {
       max-height: 200px;
       overflow-y: auto;
@@ -85,5 +86,30 @@
     &:hover {
       background-color: #5a91d0;
     }
+
+    img {
+      display: absolute;
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+  }
+
+  .sidebar img {
+    position: absolute;
+    margin-top: 20px;
+    bottom: 20px; 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%; 
+    max-width: 200px; 
+    height: auto; 
+    z-index: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar img {
+    max-width: 150px; 
   }
 }

@@ -13,10 +13,13 @@ function Home() {
           <h1 className="title">Find your way around campus, Bravehearts!</h1>
           <p>
             {" "}
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi
-            distinctio hic eaque tempore suscipit minima aliquid voluptates
-            natus fugit consequatur inventore, itaque dolores et maiores
-            molestiae libero quibusdam quis? Itaque.
+            The home of the bravehearts might be bigger than it looks, but don't
+            worry — We've got you covered. With ASTRACK, finding your way around
+            campus has never been easier or more convenient. Your journey to
+            greatness starts here.
+            <br />
+            <br />
+            Use the search bar below to find a facility you might need!
           </p>
           <SearchBar />
           <div className="boxes">

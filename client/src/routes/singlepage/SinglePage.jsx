@@ -7,6 +7,7 @@ import { useContext, useState } from "react";
 import apiRequest from "../../lib/apiRequest";
 import { AuthContext } from "../../context/authContext";
 import DOMPurify from "dompurify";
+import { getOrdinal } from "../../lib/getOrdinal";
 
 function SinglePage() {
   const currentFacility = useLoaderData();
@@ -91,7 +92,7 @@ function SinglePage() {
           <div className="infos">
             <div className="info">
               <img src="/stair.png" alt="" />
-              <span>{currentFacility.floor} Floor/s</span>
+              <span>{getOrdinal(currentFacility.floor)} Floor</span>
             </div>
             <div className="info">
               <img src="/room.png" alt="" />

@@ -49,7 +49,7 @@ const BigMap = ({ currentLocation, selectedFacility }) => {
         routeWhileDragging: true,
         addWaypoints: false,
         lineOptions: {
-          styles: [{ color: "#6FA1EC", weight: 6 }],
+          styles: [{ color: "#FF9F00", weight: 5 }],
         },
         createMarker: (i, waypoint) => {
           const icons = [

@@ -8,7 +8,6 @@ function AdminReservations({ reservations, onUpdate }) {
   );
 
   useEffect(() => {
-    console.log("Reservations prop on mount:", reservations); // Log the reservations prop
     setUpdatedReservations(reservations);
   }, [reservations]);
 

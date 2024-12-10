@@ -3,7 +3,7 @@ import { calcDistance } from "../../lib/calcDistance";
 import { Link } from "react-router-dom";
 import "./sidebar.scss";
 import useReverseGeocoding from "../../hooks/useReverseGeocoding";
-
+import { getOrdinal } from "../../lib/getOrdinal";
 const Sidebar = ({
   currentLocation,
   facilities,
@@ -19,10 +19,12 @@ const Sidebar = ({
     <div className="sidebar">
       <h1>Directions</h1>
       <p>
-        <span>General Location:</span> {generalLocation}
+        <span>General Location:</span> <br />
+        {generalLocation}
       </p>
       <p>
-        <span>Coordinates:</span> Latitude {currentLocation.latitude}, Longitude{" "}
+        <span>Coordinates:</span> <br />
+        Latitude {currentLocation.latitude}, Longitude{" "}
         {currentLocation.longitude}
       </p>
       <label htmlFor="facility-select">
@@ -44,7 +46,7 @@ const Sidebar = ({
       </Link>
       <p>
         <span>Destination:</span> Please head to{" "}
-        <strong>Floor {selectedFacility.floor}</strong>
+        <strong>{getOrdinal(selectedFacility.floor)} Floor</strong>
       </p>
       <p>
         <span>Distance:</span>{" "}
@@ -56,6 +58,7 @@ const Sidebar = ({
         ).toFixed(2)}{" "}
         km
       </p>
+      <img src="/point_tinman.png" alt="Tin Man" />
     </div>
   );
 };

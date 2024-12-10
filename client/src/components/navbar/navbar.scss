@@ -177,7 +177,7 @@ nav {
 
             &.active {
                 display: flex;
-                z-index: 3; // Ensure it’s above everything
+                z-index: 99; // Ensure it’s above everything
             }
 
             @include sm {

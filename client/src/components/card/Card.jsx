@@ -7,6 +7,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import apiRequest from "../../lib/apiRequest";
 import { AuthContext } from "../../context/authContext";
+import { getOrdinal } from "../../lib/getOrdinal";
 
 function Card({ item }) {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -30,7 +31,7 @@ function Card({ item }) {
   const dropdownText = !eventToShow
     ? "No events available"
     : showDropdown
-    ? "<"
+    ? ">"
     : ongoingEvent
     ? "Show Ongoing Event"
     : "Show Most Recent Event";
@@ -76,14 +77,14 @@ function Card({ item }) {
             </div>
             <div className="feature">
               <img src="/stair.png" alt="Stair icon" />
-              <span>Floor {item.floor}</span>
+              <span>{getOrdinal(parseInt(item.floor))} floor</span>
             </div>
           </div>
           <div className="icons">
             <div
               className="icon"
               style={{
-                "background-color": favorite ? "#cacfffa4" : "white",
+                backgroundColor: favorite ? "#cacfffa4" : "white",
               }}
             >
               {/* Save button with conditional styling */}
