@@ -1,193 +1,142 @@
-import React, { useState, useEffect } from "react";
-import UploadWidget from "../../../components/uploadWidget/UploadWidget";
-import SelectLocationMap from "../../../components/map/SelectLocationMap";
+import { useState } from "react";
 import "./newFacilityPage.scss";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import apiRequest from "../../../lib/apiRequest";
+import UploadWidget from "../../../components/uploadWidget/UploadWidget";
+import { useNavigate } from "react-router-dom";
 
 function NewFacilityPage() {
-  const [title, setTitle] = useState("");
-  const [location, setLocation] = useState("");
-  const [latitude, setLatitude] = useState(14.077915);
-  const [longitude, setLongitude] = useState(121.149679);
   const [description, setDescription] = useState("");
-  const [type, setType] = useState("");
-  const [floor, setFloor] = useState("");
-  const [openHours, setOpenHours] = useState("");
-  const [owner, setOwner] = useState("");
   const [images, setImages] = useState([]);
-  const [imageUrls, setImageUrls] = useState([]);
+  const [error, setError] = useState("");
 
-  // Handle image upload to set the image URLs
-  const handleImageUpload = (uploadedImages) => {
-    setImages(uploadedImages);
-    setImageUrls(uploadedImages.map((image) => URL.createObjectURL(image)));
-  };
+  const navigate = useNavigate();
 
-  // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
+    const formData = new FormData(e.target);
+    const inputs = Object.fromEntries(formData);
 
-    formData.append("title", title);
-    formData.append("location", location);
-    formData.append("latitude", latitude);
-    formData.append("longitude", longitude);
-    formData.append("description", description);
-    formData.append("type", type);
-    formData.append("floor", floor);
-    formData.append("openHours", openHours);
-    formData.append("ownerId", owner);
+    try {
+      const res = await apiRequest.post("/facilities", {
+        title: inputs.title,
+        location: inputs.location,
+        latitude: parseFloat(inputs.latitude),
+        longitude: parseFloat(inputs.longitude),
+        description: description,
+        img: images,
+        type: inputs.type,
+        floor: parseInt(inputs.floor),
+        openHours: inputs.openHours,
+        ownerId: inputs.ownerId,
+      });
 
-    images.forEach((image) => formData.append("img", image));
-
-    // Send formData to your API for facility creation (adjust API endpoint)
-    fetch("/api/facilities", {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          alert("Facility added successfully!");
-          // Reset the form after submission
-          resetForm();
-        } else {
-          alert("Error adding facility.");
-        }
-      })
-      .catch((error) => alert("Error submitting form: " + error));
-  };
-
-  // Reset the form
-  const resetForm = () => {
-    setTitle("");
-    setLocation("");
-    setLatitude(0);
-    setLongitude(0);
-    setDescription("");
-    setType("");
-    setFloor("");
-    setOpenHours("");
-    setOwner("");
-    setImages([]);
-    setImageUrls([]);
+      navigate("/" + res.data.id);
+    } catch (err) {
+      console.error(err);
+      setError("Failed to add facility. Please try again.");
+    }
   };
 
   return (
-    <div className="new-facility-page">
-      <h1>Add New Facility</h1>
-      <form onSubmit={handleSubmit} className="facility-form">
-        <div className="form-group">
-          <label htmlFor="title">Facility Title</label>
-          <input
-            type="text"
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
-        </div>
+    <div className="newFacilityPage">
+      <div className="formContainer">
+        <h1>Add New Facility</h1>
+        <div className="wrapper">
+          <form onSubmit={handleSubmit}>
+            <div className="item">
+              <label htmlFor="title">Title</label>
+              <input id="title" name="title" type="text" required />
+            </div>
+            <div className="item">
+              <label htmlFor="location">Location</label>
+              <input id="location" name="location" type="text" required />
+            </div>
+            <div className="item">
+              <label htmlFor="latitude">Latitude</label>
+              <input
+                id="latitude"
+                name="latitude"
+                type="number"
+                step="any"
+                required
+              />
+            </div>
+            <div className="item">
+              <label htmlFor="longitude">Longitude</label>
+              <input
+                id="longitude"
+                name="longitude"
+                type="number"
+                step="any"
+                required
+              />
+            </div>
+            <div className="item description">
+              <label htmlFor="description">Description</label>
+              <ReactQuill
+                theme="snow"
+                onChange={setDescription}
+                value={description}
+              />
+            </div>
+            <div className="item">
+              <label htmlFor="type">Type</label>
+              <select id="type" name="type" required>
+                <option value="Conference">Conference Room</option>
+                <option value="Laboratory">Laboratory</option>
+                <option value="Classroom">Classroom</option>
+                <option value="Lobby">Lobby</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div className="item">
+              <label htmlFor="floor">Floor</label>
+              <input id="floor" name="floor" type="number" required />
+            </div>
+            <div className="item">
+              <label htmlFor="openHours">Open Hours</label>
+              <input
+                id="openHours"
+                name="openHours"
+                type="text"
+                placeholder="e.g. 8:00 AM - 5:00 PM"
+                required
+              />
+            </div>
+            <div className="item">
+              <label htmlFor="ownerId">Owner</label>
+              <select id="ownerId" name="ownerId" required>
+                <option value="6755955644b73156759baa7a">FAITH Colleges</option>
+                <option value="6755955644b73156759baa7c">
+                  Fidelis Senior High
+                </option>
+                <option value="6755955644b73156759baa7b">
+                  FAITH Catholic School
+                </option>
+              </select>
+            </div>
 
-        <div className="form-group">
-          <label htmlFor="location">Location</label>
-          <input
-            type="text"
-            id="location"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            required
-          />
+            <button className="sendButton">Add Facility</button>
+            {error && <span className="errorMessage">{error}</span>}
+          </form>
         </div>
-
-        <div className="form-group">
-          <label htmlFor="description">Description</label>
-          <textarea
-            id="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="type">Type</label>
-          <input
-            type="text"
-            id="type"
-            value={type}
-            onChange={(e) => setType(e.target.value)}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="floor">Floor</label>
-          <input
-            type="text"
-            id="floor"
-            value={floor}
-            onChange={(e) => setFloor(e.target.value)}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="openHours">Open Hours</label>
-          <input
-            type="text"
-            id="openHours"
-            value={openHours}
-            onChange={(e) => setOpenHours(e.target.value)}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="owner">Owner ID</label>
-          <input
-            type="text"
-            id="owner"
-            value={owner}
-            onChange={(e) => setOwner(e.target.value)}
-            required
-          />
-        </div>
-
-        {/* Image Upload */}
-        <div className="form-group">
-          <label>Upload Facility Images (max 4)</label>
-          <UploadWidget
-            uwConfig={{
-              cloudName: "your-cloud-name",
-              uploadPreset: "your-upload-preset",
-            }}
-            setAvatar={handleImageUpload}
-            setState={setImageUrls}
-          />
-          <div className="image-previews">
-            {imageUrls.length > 0 &&
-              imageUrls.map((url, index) => (
-                <img key={index} src={url} alt={`Preview ${index + 1}`} />
-              ))}
-          </div>
-        </div>
-
-        {/* Location Selection Map */}
-        <div className="form-group">
-          <label>Location on Map</label>
-          <SelectLocationMap
-            initialPosition={[latitude, longitude]}
-            onLocationSelect={(lat, lng) => {
-              setLatitude(lat);
-              setLongitude(lng);
-            }}
-          />
-        </div>
-
-        {/* Submit Button */}
-        <button type="submit" className="submit-btn">
-          Add Facility
-        </button>
-      </form>
+      </div>
+      <div className="sideContainer">
+        {images.map((image, index) => (
+          <img src={image} key={index} alt={`Facility Preview ${index + 1}`} />
+        ))}
+        <UploadWidget
+          uwConfig={{
+            multiple: true,
+            cloudName: "dxgsvbjwo",
+            uploadPreset: "facilityPictures",
+            folder: "facilities",
+          }}
+          setState={setImages}
+        />
+      </div>
     </div>
   );
 }

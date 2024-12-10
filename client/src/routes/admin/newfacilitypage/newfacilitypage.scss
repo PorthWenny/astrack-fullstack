@@ -1,70 +1,76 @@
-.new-facility-page {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.newFacilityPage {
+  height: 100%;
+  display: flex;
 
-  h1 {
-    text-align: center;
-    margin-bottom: 20px;
+  .formContainer {
+    flex: 3;
+    overflow: scroll;
+
+    .wrapper {
+      margin: 30px 50px 100px 0px;
+
+      form {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
+
+        .item {
+          width: 30%;
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+
+          label {
+          }
+
+          input {
+            padding: 20px;
+            border-radius: 5px;
+            border: 1px solid gray;
+          }
+
+          select {
+            padding: 19px;
+          }
+
+          &.description {
+            width: 100%;
+            height: 320px;
+
+            .quill > .ql-container > .ql-editor{
+              height: 200px;
+              font-size: 16px;
+            }
+          }
+        }
+        .sendButton {
+          width: 30%;
+          border-radius: 5px;
+          border: none;
+          background-color: teal;
+          color: white;
+          font-weight: bold;
+          cursor: pointer;
+        }
+      }
+    }
   }
 
-  .facility-form {
+  .sideContainer {
+    flex: 2;
+    background-color: #fcf5f3;
     display: flex;
     flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
 
-    .form-group {
-      margin-bottom: 15px;
-
-      label {
-        font-weight: bold;
-        margin-bottom: 5px;
-      }
-
-      input,
-      textarea {
-        width: 100%;
-        padding: 10px;
-        font-size: 14px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        box-sizing: border-box;
-      }
-
-      textarea {
-        resize: vertical;
-        height: 100px;
-      }
-    }
-
-    .image-previews {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-
-      img {
-        width: 100px;
-        height: 100px;
-        object-fit: cover;
-        border-radius: 5px;
-      }
-    }
-
-    .submit-btn {
-      background-color: #4caf50;
-      color: white;
-      padding: 10px 20px;
-      border: none;
+    img {
+      width: 50%;
+      height: 180px;
+      object-fit: cover;
       border-radius: 5px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-
-      &:hover {
-        background-color: #45a049;
-      }
     }
   }
 }

@@ -6,6 +6,7 @@ import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import apiRequest from "../../lib/apiRequest";
 import { AuthContext } from "../../context/authContext";
+import DOMPurify from "dompurify";
 
 function SinglePage() {
   const currentFacility = useLoaderData();
@@ -71,7 +72,12 @@ function SinglePage() {
                 <span>{currentFacility.owner.name}</span>
               </div>
             </div>
-            <div className="bottom">{currentFacility.description}</div>
+            <div
+              className="bottom"
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(currentFacility.description),
+              }}
+            ></div>
           </div>
         </div>
       </div>
