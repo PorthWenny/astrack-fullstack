@@ -17,10 +17,12 @@ const Directions = () => {
       setLoading(true);
       const data = await facilityDataLoader();
       setFacilities(data);
+
+      // if null, auto 0
       if (data.length > 0 && !selectedFacility) {
-        // Set first facility as default if not already selected
         setSelectedFacility(data[0]);
       }
+
       setLoading(false);
     };
 
@@ -29,12 +31,14 @@ const Directions = () => {
 
   // Handle facility change (when a new facility is selected from dropdown)
   const handleFacilityChange = (facilityId) => {
-    const facility = facilities.find((fac) => fac.id === Number(facilityId));
+    const facility = facilities.find((fac) => fac.id === facilityId);
     if (facility && facility !== selectedFacility) {
       setSelectedFacility(facility); // Only update if the facility is different
     }
   };
 
+  console.log("Current location: ", currentLocation);
+  console.log("Selected Facility: ", selectedFacility);
   // Show loading state if still fetching data or missing essential data
   if (loading || !currentLocation || !selectedFacility) {
     return <div>Loading map...</div>;

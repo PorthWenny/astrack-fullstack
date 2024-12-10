@@ -27,13 +27,14 @@ export const facilityTypesLoader = async () => {
 
 export const facilityDataLoader = async () => {
   try {
-    const response = await fetch("/facilities");
+    const response = await fetch("/api/facilities");
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
     const data = await response.json();
+    console.log(data);
     return data;
   } catch (error) {
     console.error("Error fetching facility data:", error);
