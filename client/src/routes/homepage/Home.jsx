@@ -6,8 +6,6 @@ import { AuthContext } from "../../context/authContext";
 function Home() {
   const { currentUser } = useContext(AuthContext);
 
-  console.log(currentUser);
-
   return (
     <div className="Home">
       <div className="textContainer">

@@ -120,79 +120,6 @@ export const ownerData = {
   fb: "https://www.facebook.com/FAITHColleges",
 };
 
-export const eventsData = [
-  {
-    id: 1,
-    title: "Book Fair 2024",
-    location_id: 1,
-    date: "2024-11-15",
-    time: "9:00 AM - 5:00 PM",
-    img: "https://images.pexels.com/photos/583121/pexels-photo-583121.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    description:
-      "An exciting book fair featuring thousands of books across different genres. Meet local authors and take part in book signing sessions. A great opportunity for students and book lovers alike!",
-  },
-  {
-    id: 2,
-    title: "Engineering Workshop",
-    location_id: 1,
-    date: "2024-11-18",
-    time: "10:00 AM - 3:00 PM",
-    img: "https://images.pexels.com/photos/256219/pexels-photo-256219.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    description:
-      "Hands-on workshop covering key engineering concepts. Learn about robotics, circuit design, and much more. Open to all students in the engineering and technology departments.",
-  },
-  {
-    id: 3,
-    title: "Health and Wellness Seminar",
-    location_id: 1,
-    date: "2024-11-07",
-    time: "1:00 PM - 3:00 PM",
-    img: "https://images.pexels.com/photos/2377166/pexels-photo-2377166.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    description:
-      "A seminar focused on health and wellness for students and staff. Topics include mental health awareness, stress management, and physical wellness. Attendees will receive a free wellness kit.",
-  },
-  {
-    id: 4,
-    title: "Science Exhibit",
-    location_id: 1,
-    date: "2024-11-12",
-    time: "9:00 AM - 4:00 PM",
-    img: "https://images.pexels.com/photos/256401/pexels-photo-256401.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    description:
-      "Explore the world of science through interactive exhibits and experiments. The event will feature demonstrations in physics, chemistry, and biology with hands-on activities for attendees.",
-  },
-  {
-    id: 5,
-    title: "Sports Fest",
-    location_id: 1,
-    date: "2024-11-09",
-    time: "8:00 AM - 6:00 PM",
-    img: "https://images.pexels.com/photos/595747/pexels-photo-595747.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    description:
-      "Annual Sports Fest for all students, featuring a variety of sports events including basketball, volleyball, and track and field. Join to show your skills or cheer for your team!",
-  },
-  {
-    id: 6,
-    title: "Tech Symposium",
-    location_id: 1,
-    date: "2024-07-24",
-    time: "10:00 AM - 4:00 PM",
-    img: "https://images.pexels.com/photos/1181359/pexels-photo-1181359.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    description:
-      "A full-day symposium with expert speakers in the field of computer science. Topics include AI, cybersecurity, and software development. Network with tech enthusiasts and learn about the latest innovations.",
-  },
-  {
-    id: 7,
-    title: "Art Exhibition",
-    location_id: 1,
-    date: "2024-11-30",
-    time: "9:00 AM - 5:00 PM",
-    img: "https://images.pexels.com/photos/1126440/pexels-photo-1126440.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    description:
-      "An art exhibition featuring works from students and local artists. Come and appreciate beautiful artworks, from paintings to sculptures, and meet the artists behind the creations.",
-  },
-];
-
 export const currentUser = {
   name: "John Doe",
   email: "johndoe@example.com",
@@ -227,5 +154,76 @@ export const reserveData = [
     startTime: "2:00 PM",
     endTime: "4:00 PM",
     progress: "Approved",
+  },
+];
+
+// events data
+
+export const eventsData = [
+  {
+    id: 213,
+    userId: "6733782a1dca6334d23164ed",
+    facilityId: "6755984444b73156759baa7f",
+    date: "January 10, 2024",
+    time: "9:00 AM - 12:00 PM",
+    img: "https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    purpose: "Hackathon: Building a weather app using APIs",
+    description:
+      "Participants will build a weather application using APIs, learning how to retrieve and display weather data dynamically.",
+  },
+  {
+    id: 214,
+    userId: "6733782a1dca6334d23164ed",
+    facilityId: "6755984444b73156759baa80",
+    date: "February 14, 2024",
+    time: "1:00 PM - 4:00 PM",
+    img: "https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    purpose: "3D Animation Workshop: Designing characters with Blender",
+    description:
+      "In this workshop, attendees will learn the basics of 3D animation using Blender, including character modeling and animation techniques.",
+  },
+  {
+    id: 215,
+    userId: "6733782a1dca6334d23164ed",
+    facilityId: "6755984444b73156759baa82",
+    date: "March 3, 2024",
+    time: "10:00 AM - 1:00 PM",
+    img: "https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    purpose: "Video Editing Session: Mastering Adobe Premiere Pro",
+    description:
+      "Learn the essential tools and techniques of video editing using Adobe Premiere Pro, covering everything from basic edits to advanced transitions.",
+  },
+  {
+    id: 216,
+    userId: "6733782a1dca6334d23164ed",
+    facilityId: "6755984444b73156759baa95",
+    date: "April 5, 2024",
+    time: "8:00 AM - 11:00 AM",
+    img: "https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    purpose: "Hardware Troubleshooting: Diagnosing and repairing motherboards",
+    description:
+      "This session will focus on diagnosing hardware issues and repairing motherboards, including troubleshooting common problems and replacing components.",
+  },
+  {
+    id: 217,
+    userId: "6733782a1dca6334d23164ed",
+    facilityId: "6755984444b73156759baa7f",
+    date: "April 20, 2024",
+    time: "2:00 PM - 5:00 PM",
+    img: "https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    purpose: "Laptop Maintenance: Replacing thermal paste and cleaning fans",
+    description:
+      "Learn how to maintain and improve laptop performance by replacing thermal paste and cleaning cooling fans to prevent overheating.",
+  },
+  {
+    id: 218,
+    userId: "6733782a1dca6334d23164ed",
+    facilityId: "6755984444b73156759baa80",
+    date: "May 15, 2024",
+    time: "9:00 AM - 12:00 PM",
+    img: "https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    purpose: "Networking Hardware Setup: Configuring routers and switches",
+    description:
+      "This event covers the setup and configuration of networking hardware, including routers and switches, to establish an efficient network environment.",
   },
 ];

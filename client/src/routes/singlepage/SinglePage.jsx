@@ -9,13 +9,31 @@ import { AuthContext } from "../../context/authContext";
 
 function SinglePage() {
   const currentFacility = useLoaderData();
-  const [favorite, setFavorite] = useState(currentFacility.isFavorite);
   const { currentUser } = useContext(AuthContext);
   const ongoingEvent = isEventOngoing(currentFacility.id);
   const navigate = useNavigate();
 
+  // Initialize favorite state from localStorage or currentFacility.isFavorite
+  const [favorite, setFavorite] = useState(() => {
+    const savedFavorite = localStorage.getItem(
+      `favorite-${currentFacility.id}`
+    );
+    return savedFavorite
+      ? JSON.parse(savedFavorite)
+      : currentFacility.isFavorite;
+  });
+
   const handleSave = async () => {
-    setFavorite((prev) => !prev);
+    setFavorite((prev) => {
+      const newState = !prev;
+      // Save to localStorage
+      localStorage.setItem(
+        `favorite-${currentFacility.id}`,
+        JSON.stringify(newState)
+      );
+      return newState;
+    });
+
     if (!currentUser) {
       navigate("/login");
       return;
@@ -25,7 +43,7 @@ function SinglePage() {
       await apiRequest.post("/users/save", { facilityId: currentFacility.id });
     } catch (err) {
       console.log(err);
-      setFavorite((prev) => !prev);
+      setFavorite((prev) => !prev); // Revert in case of error
     }
   };
 
@@ -61,7 +79,7 @@ function SinglePage() {
         <div className="wrapper">
           <p className="title">Events Held</p>
           <div className="listVertical">
-            <Events locationId={currentFacility.id} />
+            <Events facilityId={currentFacility.id} />
           </div>
           <p className="title">Information</p>
           <div className="infos">
@@ -120,7 +138,7 @@ function SinglePage() {
             </Link>
             <button
               onClick={handleSave}
-              style={{ backgroundColor: favorite ? "#18187e" : "white" }}
+              style={{ backgroundColor: favorite ? "#cacfffa4" : "white" }}
             >
               <img src="/save.png" alt="" />
               {favorite ? "Facility saved" : "Save as Favorite"}

@@ -27,9 +27,6 @@ export const updateUser = async (req, res) => {
   const tokenUserId = req.userId;
   const { password, avatar, ...inputs } = req.body;
 
-  console.log("Request User ID from Token:", tokenUserId);
-  console.log("Request Param ID:", id);
-
   if (id !== tokenUserId) {
     return res.status(403).json({ message: "You are not authorized" });
   }
@@ -118,15 +115,12 @@ export const saveFacility = async (req, res) => {
 export const getUserFavorites = async (req, res) => {
   const userId = req.userId;
 
-  console.log("Fetching favorites for user:", userId);
-
   try {
     const favorites = await prisma.favorites.findMany({
       where: { userId },
       include: { facility: true },
     });
 
-    console.log("Favorites fetched:", favorites);
     res.status(200).json(favorites);
   } catch (error) {
     console.error("Error fetching favorites:", error.message);

@@ -100,9 +100,10 @@
 
         button {
             display: flex;
+            flex-direction: row;
             align-content: center;
             width: 100%;
-            max-width: 450px;
+            max-width: 100px;
             padding: 20px;
             align-items: center;
             justify-content: center;

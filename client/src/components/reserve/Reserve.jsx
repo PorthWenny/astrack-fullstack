@@ -1,10 +1,28 @@
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../context/authContext";
+import { userReservationsLoader } from "../../lib/loaders";
 import "./reserve.scss";
-import { facilData, reserveData, currentUser } from "../../lib/demodata";
 
 function Reserve() {
-  const userReservations = reserveData.filter(
-    (reservation) => reservation.user_id === currentUser.user_id
-  );
+  const { currentUser } = useContext(AuthContext);
+  const [userReservations, setUserReservations] = useState([]);
+
+  useEffect(() => {
+    const fetchUserReservations = async () => {
+      try {
+        const data = await userReservationsLoader({
+          params: { id: currentUser.id },
+        });
+        setUserReservations(data);
+      } catch (error) {
+        console.error("Error fetching user reservations:", error);
+      }
+    };
+
+    if (currentUser?.id) {
+      fetchUserReservations();
+    }
+  }, [currentUser]);
 
   return (
     <div className="Reserve">
@@ -12,9 +30,7 @@ function Reserve() {
         <div className="wrapper">
           {userReservations.length ? (
             userReservations.map((reservation, index) => {
-              const facility = facilData.find(
-                (facil) => facil.id === reservation.location_id
-              );
+              const facility = reservation.facility;
 
               if (!facility) {
                 console.warn(
@@ -23,7 +39,6 @@ function Reserve() {
                 return null;
               }
 
-              // Use a fallback for missing reservation.id
               const uniqueKey = reservation.id || `reservation-${index}`;
 
               return (
@@ -36,11 +51,10 @@ function Reserve() {
                     <h2>{reservation.event_name}</h2>
                     <h3>{facility.title || "Unknown Facility"}</h3>
                     <p>
-                      <strong>Date:</strong> {reservation.date}
+                      <strong>Date:</strong> {reservation.rsvDate}
                     </p>
                     <p>
-                      <strong>Time:</strong> {reservation.startTime} -{" "}
-                      {reservation.endTime}
+                      <strong>Time:</strong> {reservation.rsvTime}
                     </p>
                     <p>
                       <strong>Status:</strong> {reservation.progress}

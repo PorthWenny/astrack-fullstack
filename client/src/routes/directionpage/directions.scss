@@ -2,9 +2,86 @@
 
 .Directions {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  height: 100vh; // Full viewport height for a balanced layout
 
   @include sm {
+    flex-direction: column; // Stack on smaller screens
+    height: auto; // Adjust naturally
+  }
+
+  .Sidebar {
+    width: 30%; // Slightly wider sidebar for better usability
+    background-color: #f8f9fa; // Light, clean background
+    border-right: 1px solid #ddd; // Subtle separation
+    padding: 1.5rem; // Comfortable padding
+    display: flex;
     flex-direction: column;
+    gap: 1rem; // Space between elements for readability
+
+    @include sm {
+      width: 100%; // Full width on small screens
+      border-right: none; // Adjust layout
+      border-bottom: 1px solid #ddd;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      color: #333;
+      font-weight: bold;
+    }
+
+    select {
+      padding: 0.7rem;
+      font-size: 1rem;
+      border: 1px solid #bbb;
+      border-radius: 6px;
+      outline: none;
+      transition: border-color 0.3s;
+
+      &:focus {
+        border-color: #6FA1EC;
+      }
+    }
+
+    p {
+      font-size: 1rem;
+      color: #666;
+      line-height: 1.5;
+    }
+
+    button {
+      margin-top: auto; // Stick to bottom
+      padding: 0.8rem 1.2rem;
+      font-size: 1rem;
+      background-color: #6FA1EC;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: #5a91d0;
+      }
+    }
+  }
+
+  .BigMap {
+    flex: 1; // Occupy remaining space
+    background-color: white;
+    border-left: 1px solid #ddd; // Match sidebar separation
+    border-radius: 0 8px 8px 0; // Smooth edges
+    overflow: hidden;
+
+    @include sm {
+      width: 100%; // Full width for stacked layout
+      border-radius: 0; // No radius on small screens
+    }
+
+    #map {
+      width: 100%;
+      height: 100%;
+    }
   }
 }

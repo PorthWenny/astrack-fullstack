@@ -1,10 +1,10 @@
 import "./events.scss";
 import { eventsData } from "../../lib/demodata";
 
-export function isEventOngoing(locationId) {
+export function isEventOngoing(facilityId) {
   const now = new Date();
   return eventsData.some((event) => {
-    if (event.location_id !== locationId) return false;
+    if (event.facilityId !== facilityId) return false;
 
     const eventDate = new Date(event.date);
     const [startTime, endTime] = event.time.split(" - ").map((time) => {
@@ -17,11 +17,11 @@ export function isEventOngoing(locationId) {
   });
 }
 
-export function filterPastEvents(locationId) {
+export function filterPastEvents(facilityId) {
   const now = new Date();
   return eventsData
     .filter((event) => {
-      if (event.location_id !== locationId) return false;
+      if (event.facilityId !== facilityId) return false;
 
       const [startTime, endTime] = event.time.split(" - ").map((time) => {
         // Convert 12-hour format to 24-hour format
@@ -44,16 +44,16 @@ export function filterPastEvents(locationId) {
     });
 }
 
-function Events({ locationId }) {
-  const filteredEvents = filterPastEvents(locationId);
+function Events({ facilityId }) {
+  const filteredEvents = filterPastEvents(facilityId);
 
   return (
     <div className="Events">
       {filteredEvents.map((event) => (
         <div key={event.id} className="event-card">
-          <img src={event.img} alt={event.title} />
+          <img src={event.img} alt={event.purpose} />
           <div className="event-info">
-            <h3>{event.title}</h3>
+            <h3>{event.purpose}</h3>
             <p className="date-time">
               {event.date} | {event.time}
             </p>

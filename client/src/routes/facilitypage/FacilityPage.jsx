@@ -34,7 +34,7 @@ function FacilityPage() {
             errorElement={<p>Error loading data!</p>}
           >
             {(postResponse) => (
-              <Map items={postResponse.data} center={[14.078175, 121.150709]} />
+              <Map items={postResponse.data} center={[14.077915, 121.149679]} />
             )}
           </Await>
         </Suspense>

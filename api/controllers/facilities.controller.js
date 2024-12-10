@@ -86,6 +86,7 @@ export const getFacility = async (req, res) => {
 
 export const addFacility = async (req, res) => {
   const body = req.body;
+  console.log("Request body received at backend:", body); // Debug incoming data
 
   try {
     const newFacility = await prisma.facilities.create({
@@ -110,6 +111,7 @@ export const addFacility = async (req, res) => {
     res.status(201).json(newFacility);
   } catch (error) {
     console.error("Error adding facility:", error.message);
+    console.error("Full Error:", error);
     res.status(500).json({ message: "Failed to create facility" });
   }
 };

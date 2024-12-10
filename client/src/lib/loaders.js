@@ -6,6 +6,16 @@ export const singlePageLoader = async ({ request, params }) => {
   return res.data;
 };
 
+export const userReservationsLoader = async ({ params }) => {
+  try {
+    const res = await apiRequest("/reservations?userId=" + params.id);
+    return res.data;
+  } catch (error) {
+    console.error("Error fetching user reservations:", error);
+    return [];
+  }
+};
+
 export const facilityPageLoader = async ({ request, params }) => {
   const query = request.url.split("?")[1];
   const postPromise = apiRequest("/facilities?" + query);

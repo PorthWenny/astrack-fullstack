@@ -3,14 +3,87 @@
 .sidebar {
   width: 25%;
   padding: 20px;
-  background-color: #f5f5f5;
+  background-color: #ffffff; // Clean white background
+  border-right: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 
   @include sm {
     width: 100%;
     order: 2;
+    border-right: none;
+    border-top: 1px solid #e0e0e0;
   }
 
   @include md {
     width: 35%;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #4a4a4a;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    font-size: 1rem;
+    color: #6c757d;
+    line-height: 1.5;
+
+    span {
+      font-weight: 600;
+      color: #333;
+    }
+  }
+
+  select {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #4a4a4a;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+    background: #ffffff;
+    appearance: none;
+    cursor: pointer;
+    transition: all 0.3s;
+  
+    // Hover and focus styles
+    &:hover {
+      border-color: #6fa1ec;
+    }
+  
+    &:focus {
+      outline: none;
+      border-color: #6fa1ec;
+      box-shadow: 0 0 4px rgba(111, 161, 236, 0.5);
+    }
+  
+    option {
+      max-height: 200px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #cccccc #ffffff;
+    }
+  }
+
+  button {
+    align-self: flex-start;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    background-color: #6fa1ec;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #5a91d0;
+    }
   }
 }

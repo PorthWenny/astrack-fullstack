@@ -1,14 +1,22 @@
 import prisma from "../lib/prisma.js";
 
 export const getReservations = async (req, res) => {
+  const { userId } = req.query;
+
   try {
-    const reservations = await prisma.reservations.findMany({
+    const queryOptions = {
       include: {
         user: true,
         facility: true,
       },
-    });
-    console.log("Reservations:", reservations);
+    };
+
+    if (userId) {
+      queryOptions.where = { userId };
+    }
+
+    const reservations = await prisma.reservations.findMany(queryOptions);
+
     res.status(200).json(reservations);
   } catch (error) {
     console.log("Error fetching reservations:", error);

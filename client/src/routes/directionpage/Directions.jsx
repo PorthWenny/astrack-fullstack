@@ -1,4 +1,4 @@
-// components/Directions.jsx
+import "./directions.scss";
 import { useState, useEffect } from "react";
 import Sidebar from "../../components/bigmap/Sidebar";
 import BigMap from "../../components/bigmap/BigMap";
@@ -37,8 +37,6 @@ const Directions = () => {
     }
   };
 
-  console.log("Current location: ", currentLocation);
-  console.log("Selected Facility: ", selectedFacility);
   // Show loading state if still fetching data or missing essential data
   if (loading || !currentLocation || !selectedFacility) {
     return <div>Loading map...</div>;

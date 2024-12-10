@@ -34,7 +34,7 @@ function AdminPanel() {
   const fetchReservations = async () => {
     try {
       const res = await apiRequest.get("/reservations");
-      console.log("Reservations:", res.data);
+
       setReservations(res.data);
     } catch (error) {
       console.error("Error fetching reservations:", error);
