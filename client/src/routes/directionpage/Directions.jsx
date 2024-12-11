@@ -11,7 +11,6 @@ const Directions = () => {
   const [loading, setLoading] = useState(true);
   const currentLocation = useGeolocation();
 
-  // Fetch facilities and current location on component mount
   useEffect(() => {
     const fetchFacilities = async () => {
       setLoading(true);
@@ -29,15 +28,14 @@ const Directions = () => {
     fetchFacilities();
   }, []);
 
-  // Handle facility change (when a new facility is selected from dropdown)
   const handleFacilityChange = (facilityId) => {
     const facility = facilities.find((fac) => fac.id === facilityId);
     if (facility && facility !== selectedFacility) {
-      setSelectedFacility(facility); // Only update if the facility is different
+      setSelectedFacility(facility);
     }
   };
 
-  // Show loading state if still fetching data or missing essential data
+  // show loading state
   if (loading || !currentLocation || !selectedFacility) {
     return <div>Loading map...</div>;
   }

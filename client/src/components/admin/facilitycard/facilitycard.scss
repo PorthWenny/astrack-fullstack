@@ -3,10 +3,12 @@
 .FacilityCard {
     display: flex;
     gap: 20px;
+    margin-bottom: 40px;
+
 
     .imgContainer {
         flex: 2;
-        height: 200px;
+        height: 180px;
 
         @include sm {
             display: none;
@@ -21,24 +23,25 @@
     }
 
     .dropdown {
-        background-color: #f9f9f9;
+        background-color: #ddddf8;
         border: 1px solid #ddd;
+        width: 40%;
         padding: 10px;
         margin-top: 10px;
         border-radius: 5px;
         box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-
+    
         h3 {
             font-size: 16px;
             margin-bottom: 5px;
         }
-
+    
         .date-time {
             font-size: 14px;
             color: #555;
             margin-bottom: 5px;
         }
-
+    
         p {
             font-size: 14px;
             color: #333;
@@ -49,6 +52,10 @@
         background: none;
         border: none;
         cursor: pointer;
+        background-color: #18187e;
+        padding: 10px;
+        color: white;
+        border-radius: 10px;
 
         img {
             width: 20px;
@@ -72,7 +79,7 @@
             font-size: 20px;
             font-weight: 600;
             color: #444;
-
+            
             transition: all 0.4s ease;
 
             &:hover {
@@ -97,8 +104,8 @@
             background-color: orange;
             color: white;
             width: max-content;
-            padding-left: 10px;
-            padding-right: 10px;
+            padding-left: 15px;
+            padding-right: 15px;
         }
 
         .bottom {
@@ -108,7 +115,7 @@
 
             .features {
                 display: flex;
-                gap: 20px;
+                gap: 10px;
                 font-size: 14px;
 
                 .feature {
@@ -123,16 +130,30 @@
 
             .icons {
                 display: flex;
-                gap: 20px;
+                gap: 10px;
 
-                .icon {
-                    border: 1px solid #ccc;
+                .icon-edit {
                     padding: 2px 5px;
                     border-radius: 5px;
                     cursor: pointer;
                     display: flex;
                     align-items: center;
                     justify-content: center;
+                    background-color: rgb(11, 58, 48);
+
+                    &:hover {
+                        background-color: #ff391f44;
+                    }
+                }
+
+                .icon-del {
+                    padding: 2px 5px;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background-color: rgb(240, 98, 98);
 
                     &:hover {
                         background-color: #ff391f44;

@@ -4,27 +4,43 @@
     .reservationList {
         max-width: 800px;
         margin: auto;
+        max-height: 750px;
+        overflow-y: auto; 
 
         .wrapper {
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
+            margin: 20px;
         }
 
         .reservation {
             display: flex;
-            align-items: center;
+            align-items: flex-start; /* Ensures proper alignment */
             gap: 1rem;
+            margin-bottom: 10px;
             background: white;
-            padding: 1rem;
+            padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            flex-wrap: wrap;
+            transition: box-shadow 0.3s ease, transform 0.3s ease; /* Smooth transition for glow effect */
+
+            &.approved {
+                box-shadow: 0 0 15px 5px rgba(76, 175, 80, 0.6); /* Green glow */
+                transform: scale(1.02); /* Optional: Slightly enlarge on approval */
+            }
+
+            &.disapproved {
+                box-shadow: 0 0 15px 5px rgba(244, 67, 54, 0.6); /* Red glow */
+                transform: scale(1.02); /* Optional: Slightly enlarge on disapproval */
+            }
 
             img {
-                width: 80px;
-                height: 110px;
+                width: 100%;
+                height: 120px;
                 object-fit: cover;
-                border-radius: 8px;
+                border-radius: 5px;
 
                 @include sm {
                     display: none;
@@ -32,6 +48,11 @@
             }
 
             .reservationInfo {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                flex: 1;
+
                 h2 {
                     font-size: 1.25rem;
                     margin: 0;
@@ -45,6 +66,37 @@
 
                 p {
                     margin: 0.25rem 0;
+                }
+
+                .actionButtons {
+                    display: flex;
+                    gap: 0.5rem;
+                    margin-top: 0.75rem;
+
+                    button {
+                        padding: 0.5rem 1rem;
+                        border: none;
+                        border-radius: 4px;
+                        font-size: 0.9rem;
+                        cursor: pointer;
+                        transition: background-color 0.3s ease;
+
+                        &.approve {
+                            background-color: #4caf50;
+                            color: white;
+                            &:hover {
+                                background-color: #45a049;
+                            }
+                        }
+
+                        &.disapprove {
+                            background-color: #f44336;
+                            color: white;
+                            &:hover {
+                                background-color: #e53935;
+                            }
+                        }
+                    }
                 }
             }
         }

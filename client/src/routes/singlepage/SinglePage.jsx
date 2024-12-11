@@ -15,6 +15,7 @@ function SinglePage() {
   const ongoingEvent = isEventOngoing(currentFacility.id);
   const navigate = useNavigate();
 
+  console.log(currentFacility);
   // Initialize favorite state from localStorage or currentFacility.isFavorite
   const [favorite, setFavorite] = useState(() => {
     const savedFavorite = localStorage.getItem(

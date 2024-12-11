@@ -34,7 +34,6 @@ function AdminPanel() {
   const fetchReservations = async () => {
     try {
       const res = await apiRequest.get("/reservations");
-
       setReservations(res.data);
     } catch (error) {
       console.error("Error fetching reservations:", error);
@@ -47,7 +46,7 @@ function AdminPanel() {
   }, []);
 
   return (
-    <div className="AdminPanel">
+    <div className="Profile">
       <div className="details">
         <div className="wrapper">
           <div className="title">
@@ -59,7 +58,7 @@ function AdminPanel() {
           <div className="info">
             <span>
               Avatar:
-              <img src={currentUser.avatar || "/noavatar.png"} alt="_" />
+              <img src={currentUser.avatar || "/noavatar.png"} alt="Avatar" />
             </span>
             <span>
               Username: <b>{currentUser.username}</b>
